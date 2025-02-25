@@ -1,0 +1,1 @@
+{"message":"Preferences updated successfully","userProfile":{"id":1,"name":"Jane Doe","bio":"New bio","profilePicture":"https://via.placeholder.com/200","preferences":{"enableNotifications":false,"anonymousMode":true},"privacySettings":{"allowDataSharing":true,"enableEncryption":true}}}
