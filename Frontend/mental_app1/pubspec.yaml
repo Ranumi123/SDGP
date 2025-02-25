@@ -1,0 +1,35 @@
+name: mental_app1
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.7.0 <4.0.0' # Updated SDK constraint to ensure compatibility
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8 # Default Flutter icons
+  video_player: ^2.7.0 # For video playback functionality
+  chewie: ^1.4.0 # For enhanced video controls
+  http: ^1.1.0 # For making HTTP requests (API calls)
+  intl: ^0.18.1 # For date and time formatting (useful for chat timestamps)
+  provider: ^6.0.0 # For state management
+  flutter_animate: ^4.0.0 # For animations
+  google_fonts: ^4.0.0 # For custom fonts
+  cached_network_image: ^3.2.0 # For loading network images with caching
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0 # For linting and code quality
+
+flutter:
+  uses-material-design: true # Enables Material Design components
+
+  assets:
+    - assets/img1.jpg # Image asset
+    - assets/logo_animation.mp4 # Video asset
+    - assets/img1.png # Image asset update thislder for custom fonts
+
