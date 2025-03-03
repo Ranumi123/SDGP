@@ -24,23 +24,30 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Changed to white
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF316FCA), Color(0xFF2DABCA), Color(0xFF7BCBD3), Color(0xFF3CDFCA)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+      backgroundColor: Colors.white, // Background color set to white
+      appBar: AppBar(
+        backgroundColor: Colors.white, // AppBar white color
+        elevation: 0, // No shadow
+        leading: IconButton(
+          icon: Icon(Icons.menu, color: Colors.black), // Black menu icon
+          onPressed: () {
+            // Add your menu action here
+          },
+        ),
+        title: Text(
+          'MindBridge',
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12.0),
+            child: CircleAvatar(
+              backgroundImage: AssetImage('assets/images/logo.png'), // Replace with your logo
+              radius: 20,
             ),
           ),
-          child: AppBar(
-            title: Text('MindBridge'),
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-          ),
-        ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -82,49 +89,24 @@ class _HomePageState extends State<HomePage> {
 
             // Feature Cards (Chatbot, Chat Forum, Mood Tracker)
             Expanded(
-              child: GridView.builder(
-                padding: EdgeInsets.only(top: 10),
-                itemCount: 3,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  childAspectRatio: 0.85,
-                ),
-                itemBuilder: (context, index) {
-                  List<Map<String, String>> features = [
-                    {"title": "Chatbot", "image": "assets/images/chatbot.png", "route": "/chatbot"},
-                    {"title": "Chat Forum", "image": "assets/images/chat_forum.png", "route": "/chatforum"},
-                    {"title": "Mood Tracker", "image": "assets/images/mood_tracker.png", "route": "/moodtracker"},
-                  ];
+              child: Column(
+                children: [
+                  // First Row: Chatbot & Chat Forum
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _buildFeatureCard("Chatbot", "assets/images/chatbot.png", "/chatbot"),
+                      _buildFeatureCard("Chat Forum", "assets/images/chat_forum.png", "/chatforum"),
+                    ],
+                  ),
 
-                  return GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, features[index]["route"]!),
-                    child: Card(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                      elevation: 4,
-                      color: Colors.white,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(features[index]["image"]!, fit: BoxFit.cover),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: Text(
-                              features[index]["title"]!,
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
+                  SizedBox(height: 20),
+
+                  // Centered Mood Tracker Card
+                  Center(
+                    child: _buildFeatureCard("Mood Tracker", "assets/images/mood_tracker.png", "/moodtracker"),
+                  ),
+                ],
               ),
             ),
           ],
@@ -133,6 +115,36 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavBar(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
+      ),
+    );
+  }
+
+  // Widget for Feature Cards
+  Widget _buildFeatureCard(String title, String imagePath, String route) {
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, route),
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 4,
+        color: Colors.white,
+        child: Container(
+          width: 150, // Adjust width for layout balance
+          height: 170, // Adjust height
+          padding: EdgeInsets.all(8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Image.asset(imagePath, fit: BoxFit.cover),
+              ),
+              SizedBox(height: 8),
+              Text(
+                title,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
