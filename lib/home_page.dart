@@ -25,10 +25,22 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white, // Changed to white
-      appBar: AppBar(
-        title: Text('MindBridge'),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF316FCA), Color(0xFF2DABCA), Color(0xFF7BCBD3), Color(0xFF3CDFCA)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: AppBar(
+            title: Text('MindBridge'),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
