@@ -68,3 +68,5 @@ app.post('/chat', async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
+
+app.listen(5000, () => console.log("Server running on port 5000"));
