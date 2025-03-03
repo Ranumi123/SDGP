@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF5EFE5), // Match the theme
+      backgroundColor: Colors.white, // Changed to white
       appBar: AppBar(
         title: Text('MindBridge'),
         backgroundColor: Colors.transparent,
