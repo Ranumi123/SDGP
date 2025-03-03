@@ -19,7 +19,11 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Future<void> _sendMessage(String message) async {
     setState(() {
-      _messages.add(Message(role: 'user', content: message));
+      _messages.add(Message(
+        role: 'user',
+        content: message,
+        timestamp: DateTime.now(), // Add timestamp
+      ));
       _isLoading = true;
     });
 
@@ -36,7 +40,11 @@ class _ChatScreenState extends State<ChatScreen> {
         if (response.statusCode == 200) {
           final data = jsonDecode(response.body);
           setState(() {
-            _messages.add(Message(role: 'bot', content: data['response']));
+            _messages.add(Message(
+              role: 'bot',
+              content: data['response'],
+              timestamp: DateTime.now(), // Add timestamp
+            ));
             _isLoading = false;
           });
         } else {
@@ -52,7 +60,11 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void _handleError(String errorMessage) {
     setState(() {
-      _messages.add(Message(role: 'bot', content: errorMessage));
+      _messages.add(Message(
+        role: 'bot',
+        content: errorMessage,
+        timestamp: DateTime.now(), // Add timestamp
+      ));
       _isLoading = false;
     });
   }
@@ -70,7 +82,11 @@ class _ChatScreenState extends State<ChatScreen> {
     }
 
     setState(() {
-      _messages.add(Message(role: 'bot', content: response));
+      _messages.add(Message(
+        role: 'bot',
+        content: response,
+        timestamp: DateTime.now(), // Add timestamp
+      ));
       _isLoading = false;
     });
   }
@@ -79,7 +95,10 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chatbot', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
+        title: Text(
+          'Chatbot',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
         centerTitle: true,
         flexibleSpace: Container(
           decoration: BoxDecoration(
@@ -137,6 +156,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   return ChatBubble(
                     message: message.content,
                     isUser: message.role == 'user',
+                    timestamp: message.timestamp, // Pass timestamp
                   );
                 },
               ),
