@@ -84,7 +84,7 @@ class _ChatScreenState extends State<ChatScreen> {
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.blueAccent, Colors.purpleAccent],
+              colors: [Colors.blueAccent, Colors.white],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -107,7 +107,7 @@ class _ChatScreenState extends State<ChatScreen> {
               Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Colors.amber[100]!, Colors.orange[100]!],
+                    colors: [Colors.amber[100]!, Colors.blue[100]!],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -117,12 +117,12 @@ class _ChatScreenState extends State<ChatScreen> {
                 margin: EdgeInsets.all(8),
                 child: Row(
                   children: [
-                    Icon(Icons.warning, color: Colors.orange),
+                    Icon(Icons.warning, color: Colors.lightBlueAccent),
                     SizedBox(width: 8),
                     Expanded(
                       child: Text(
                         'Development mode: Backend not connected',
-                        style: TextStyle(fontSize: 12, color: Colors.orange[800]),
+                        style: TextStyle(fontSize: 12, color: Colors.blueAccent[800]),
                       ),
                     ),
                   ],
@@ -175,7 +175,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [Colors.blueAccent, Colors.purpleAccent],
+                          colors: [Colors.blueAccent, Colors.white],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
