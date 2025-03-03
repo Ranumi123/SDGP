@@ -34,11 +34,6 @@ class _HomePageState extends State<HomePage> {
             // Add your menu action here
           },
         ),
-        title: Text(
-          'MindBridge',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 12.0),
@@ -57,7 +52,7 @@ class _HomePageState extends State<HomePage> {
             Column(
               children: [
                 Text(
-                  "Welcome to MindBridge!",
+                  "Welcome!",
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
