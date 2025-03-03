@@ -15,7 +15,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
   final List<Message> _messages = [];
   bool _isLoading = false;
-  bool _isBackendAvailable = false;
+  bool _isBackendAvailable = true; // Set to true to connect to the backend
 
   Future<void> _sendMessage(String message) async {
     setState(() {
@@ -27,22 +27,22 @@ class _ChatScreenState extends State<ChatScreen> {
       _isLoading = true;
     });
 
-    await Future.delayed(Duration(seconds: 1));
-
     if (_isBackendAvailable) {
       try {
+        // Send the message to the backend
         final response = await http.post(
-          Uri.parse('https://your-api-url.com/chat'),
+          Uri.parse('http://localhost:5001/chat'),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({'message': message}),
         );
 
         if (response.statusCode == 200) {
+          // Parse the response from the backend
           final data = jsonDecode(response.body);
           setState(() {
             _messages.add(Message(
               role: 'bot',
-              content: data['response'],
+              content: data['reply'], // Use 'reply' as per your backend response
               timestamp: DateTime.now(), // Add timestamp
             ));
             _isLoading = false;
@@ -54,6 +54,7 @@ class _ChatScreenState extends State<ChatScreen> {
         _handleError('Error: Connection failed - $e');
       }
     } else {
+      // Mock response if backend is not available
       _handleMockResponse(message);
     }
   }
