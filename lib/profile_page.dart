@@ -1,0 +1,13 @@
+import 'package:flutter/material.dart';
+import 'bottom_navbar.dart';
+
+class ProfilePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Profile")),
+      body: Center(child: Text("Profile Page Content Here")),
+      bottomNavigationBar: BottomNavBar(selectedIndex: 2, onItemTapped: (index) {}),
+    );
+  }
+}
