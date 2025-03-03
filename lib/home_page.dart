@@ -34,53 +34,50 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Welcome Card
-            Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-              elevation: 4,
-              color: Colors.white,
-              child: Padding(
-                padding: EdgeInsets.all(16),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Welcome to MindBridge!",
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: 10),
-                          Text("Your mental wellness journey starts here!!."),
-                        ],
-                      ),
-                    ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                        'assets/images/welcome_image.png',
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ],
+            // Centered Welcome Message
+            Column(
+              children: [
+                Text(
+                  "Welcome to MindBridge!",
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
                 ),
-              ),
+                SizedBox(height: 10),
+                Text(
+                  "Your mental wellness journey starts here!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16),
+                ),
+              ],
             ),
 
             SizedBox(height: 20),
 
+            // Centered Image
+            Center(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.asset(
+                  'assets/images/welcome_image.png',
+                  width: 180, // Increased size
+                  height: 180,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+
+            SizedBox(height: 30),
+
             // Feature Cards (Chatbot, Chat Forum, Mood Tracker)
             Expanded(
               child: GridView.builder(
+                padding: EdgeInsets.only(top: 10),
                 itemCount: 3,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
-                  childAspectRatio: 0.8, // Adjust to match the uploaded image
+                  childAspectRatio: 0.85,
                 ),
                 itemBuilder: (context, index) {
                   List<Map<String, String>> features = [
