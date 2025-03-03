@@ -6,6 +6,7 @@ class ChatbotPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Chatbot")),
+      //title
       body: Center(child: Text("Chatbot Page Content Here")),
       bottomNavigationBar: BottomNavBar(selectedIndex: 1, onItemTapped: (index) {}),
     );
