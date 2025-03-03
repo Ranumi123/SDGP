@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
               Column(
                 children: [
                   Text(
-                    "Welcome!",
+                    "Welcome to MindBridge!",
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
