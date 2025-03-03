@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'dart:async';
 
 class BottomNavBar extends StatelessWidget {
   final int selectedIndex;
@@ -35,18 +35,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Color(0xFF2DABCA),
         scaffoldBackgroundColor: Colors.white,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFF316FCA),
-            foregroundColor: Colors.white,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-          ),
-        ),
-        textTheme: TextTheme(
-          bodyLarge: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
-          bodyMedium: TextStyle(fontSize: 18, color: Colors.black),
-        ),
       ),
       home: MoodTrackerScreen(),
     );
@@ -63,24 +51,15 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
   String? selectedMood;
   final List<String> moodOptions = ["😢", "😞", "😐", "😊", "😄"];
   int _selectedIndex = 0;
-  bool _showGif = false;
 
   void _saveMood() {
     if (selectedMood == null && _textController.text.trim().isEmpty) return;
 
-    // Display the GIF when the submit button is pressed
-    setState(() {
-      _showGif = true;
-    });
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => GifScreen()),
+    );
 
-    // Simulate a delay before hiding the GIF (e.g., after the "mood saved" message)
-    Future.delayed(Duration(seconds: 2), () {
-      setState(() {
-        _showGif = false;
-      });
-    });
-
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Mood saved!")));
     setState(() {
       selectedMood = null;
       _textController.clear();
@@ -107,7 +86,9 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
             Text("How are you feeling today?", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
             SizedBox(height: 20),
             Wrap(
-              spacing: 15, runSpacing: 15, alignment: WrapAlignment.center,
+              spacing: 15,
+              runSpacing: 15,
+              alignment: WrapAlignment.center,
               children: moodOptions.map((mood) => ElevatedButton(
                 onPressed: () => setState(() => selectedMood = mood),
                 style: ElevatedButton.styleFrom(
@@ -121,42 +102,57 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
             SizedBox(height: 20),
             Text("Express yourself in words ✨", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             SizedBox(height: 10),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 6,
-                    offset: Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: TextField(
-                controller: _textController,
-                style: TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(15), borderSide: BorderSide.none),
-                  hintText: "Type your feelings here...",
-                ),
-                maxLines: 1,
+            TextField(
+              controller: _textController,
+              decoration: InputDecoration(
+                hintText: "Type your feelings here...",
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
               ),
             ),
             SizedBox(height: 20),
             ElevatedButton(onPressed: _saveMood, child: Text("Submit")),
-            SizedBox(height: 20),
-            if (_showGif)
-              Center(
-                child: Image.asset('assets/thumbs_up.gif'), // Use Image.asset for displaying the GIF
-              ),
           ],
         ),
       ),
       bottomNavigationBar: BottomNavBar(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
+      ),
+    );
+  }
+}
+
+class GifScreen extends StatefulWidget {
+  @override
+  _GifScreenState createState() => _GifScreenState();
+}
+
+class _GifScreenState extends State<GifScreen> {
+  double _opacity = 1.0;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 2), () {
+      setState(() {
+        _opacity = 0.0;
+      });
+    });
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.pop(context);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: AnimatedOpacity(
+          opacity: _opacity,
+          duration: Duration(seconds: 1),
+          child: Image.asset('assets/thumbs_up.gif', width: 200, height: 200),
+        ),
       ),
     );
   }
