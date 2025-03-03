@@ -58,6 +58,7 @@ flutter:
     - assets/images/chatbot.png
     - assets/images/chat_forum.png
     - assets/images/mood_tracker.png
+    - assets/images/logo.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
