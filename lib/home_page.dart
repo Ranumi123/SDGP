@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: 10),
-                          Text("Your mental wellness journey starts here."),
+                          Text("Your mental wellness journey starts here!."),
                         ],
                       ),
                     ),
