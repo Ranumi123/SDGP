@@ -1,16 +1,31 @@
-# chat
+Chat App
 
-A new Flutter project.
+Overview
 
-## Getting Started
+This is a Flutter-based chat application that includes several mental wellness features, such as a mood tracker, NLP filtering, a chat forum, a chatbot, an alert system, and a personalized feed.
 
-This project is a starting point for a Flutter application.
+Features
 
-A few resources to get you started if this is your first Flutter project:
+Mood Tracker
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Allows users to log their mood using an emoji-based scale or a numerical scale.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Stores data locally or in the cloud (Hive, SQLite, or Firebase).
+
+Displays mood trends over time using charts and analytics.
+
+NLP Filter
+
+Uses LangChain and sentiment analysis to detect pessimistic, harmful, or sensitive messages.
+
+Prevents or warns users about potentially negative messages.
+
+Provides an option to override false positives.
+
+Chat Forum
+
+Enables users to create posts and comments.
+
+Supports upvotes/downvotes for community moderation.
+
+Allows anonymous posting for user privacy.
