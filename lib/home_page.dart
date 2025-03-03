@@ -46,45 +46,45 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            // Centered Welcome Message
-            Column(
-              children: [
-                Text(
-                  "Welcome!",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 10),
-                Text(
-                  "Your mental wellness journey starts here!",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16),
-                ),
-              ],
-            ),
+        child: SingleChildScrollView(  // ✅ FIX: Added scrolling to prevent overflow
+          child: Column(
+            children: [
+              // Centered Welcome Message
+              Column(
+                children: [
+                  Text(
+                    "Welcome!",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "Your mental wellness journey starts here!",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ],
+              ),
 
-            SizedBox(height: 20),
+              SizedBox(height: 20),
 
-            // Centered Image
-            Center(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  'assets/images/welcome_image.png',
-                  width: 180, // Increased size
-                  height: 180,
-                  fit: BoxFit.cover,
+              // Centered Image
+              Center(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.asset(
+                    'assets/images/welcome_image.png',
+                    width: 180, // Increased size
+                    height: 180,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
 
-            SizedBox(height: 30),
+              SizedBox(height: 30),
 
-            // Feature Cards (Chatbot, Chat Forum, Mood Tracker)
-            Expanded(
-              child: Column(
+              // Feature Cards (Chatbot, Chat Forum, Mood Tracker)
+              Column( // ✅ FIX: Removed `Expanded` to prevent overflow
                 children: [
                   // First Row: Chatbot & Chat Forum
                   Row(
@@ -103,8 +103,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavBar(
