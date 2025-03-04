@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'models/message_model.dart';
 import '../widgets/chat_bubble.dart';
 import 'widgets/loading_indicator.dart';
-import 'utils/constants.dart';
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -16,6 +15,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final List<Message> _messages = [];
   bool _isLoading = false;
   bool _isBackendAvailable = true; // Set to true to connect to the backend
+  String _backendUrl = 'http://192.168.1.2:5001/chat'; // Update with your backend URL
 
   Future<void> _sendMessage(String message) async {
     setState(() {
@@ -29,15 +29,17 @@ class _ChatScreenState extends State<ChatScreen> {
 
     if (_isBackendAvailable) {
       try {
-        // Send the message to the backend
+        print('Sending request to: $_backendUrl'); // Debug log
         final response = await http.post(
-          Uri.parse('http://192.168.1.2:5001/chat'),
+          Uri.parse(_backendUrl),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({'message': message}),
         );
 
+        print('Response status code: ${response.statusCode}'); // Debug log
+        print('Response body: ${response.body}'); // Debug log
+
         if (response.statusCode == 200) {
-          // Parse the response from the backend
           final data = jsonDecode(response.body);
           setState(() {
             _messages.add(Message(
@@ -47,14 +49,26 @@ class _ChatScreenState extends State<ChatScreen> {
             ));
             _isLoading = false;
           });
+        } else if (response.statusCode == 400) {
+          // Handle harmful text detection
+          setState(() {
+            _messages.add(Message(
+              role: 'bot',
+              content: 'Please refrain from using inappropriate language.',
+              timestamp: DateTime.now(),
+            ));
+            _isLoading = false;
+          });
         } else {
           _handleError('Error: Server returned ${response.statusCode}');
         }
       } catch (e) {
+        print('Error details: $e'); // Debug log
         _handleError('Error: Connection failed - $e');
+        // Fallback to mock response if backend is unavailable
+        _handleMockResponse(message);
       }
     } else {
-      // Mock response if backend is not available
       _handleMockResponse(message);
     }
   }
@@ -157,7 +171,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   return ChatBubble(
                     message: message.content,
                     isUser: message.role == 'user',
-                    timestamp: message.timestamp, // Pass timestamp
+                    timestamp: message.timestamp,
                   );
                 },
               ),
@@ -205,9 +219,14 @@ class _ChatScreenState extends State<ChatScreen> {
                       child: IconButton(
                         icon: Icon(Icons.send, color: Colors.white),
                         onPressed: () {
-                          if (_controller.text.isNotEmpty) {
-                            _sendMessage(_controller.text);
+                          final message = _controller.text.trim();
+                          if (message.isNotEmpty) {
+                            _sendMessage(message);
                             _controller.clear();
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Please enter a message')),
+                            );
                           }
                         },
                       ),
