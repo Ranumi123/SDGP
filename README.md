@@ -21,3 +21,19 @@ Uses LangChain and sentiment analysis to detect pessimistic, harmful, or sensiti
 Prevents or warns users about potentially negative messages.
 
 Provides an option to override false positives.
+
+Chat Forum
+
+Enables users to create posts and comments.
+
+Supports upvotes/downvotes for community moderation.
+
+Allows anonymous posting for user privacy.
+
+Chat Bot
+
+Integrates with Dialogflow, OpenAI API, or a custom NLP model.
+
+Provides guided mental wellness conversations.
+
+Personalizes responses based on user mood data.
