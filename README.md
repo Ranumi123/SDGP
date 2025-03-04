@@ -1,6 +1,6 @@
-Chat App
+# Chat App
 
-Overview
+## Overview
 
 This is a Flutter-based chat application that includes several mental wellness features, such as a mood tracker, NLP filtering, a chat forum, a chatbot, an alert system, and a personalized feed.
 
